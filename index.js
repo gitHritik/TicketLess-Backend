@@ -22,13 +22,24 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use(
-  cors({
-    origin: ["https://ticket-less-frontend-ou6z.vercel.app/", "https://ticket-less-frontend-ou6z.vercel.app/"],
-    methods: "GET, POST, PATCH, DELETE, PUT",
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "https://ticket-less-frontend.vercel.app", // frontend deployed URL
+  "http://localhost:5173"                     // local dev
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow non-browser requests like Postman
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = "The CORS policy for this site does not allow access from the specified Origin.";
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: "GET, POST, PATCH, DELETE, PUT",
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.use(
   session({
