@@ -56,7 +56,7 @@ let isConnected = false;
 
 
 
-const connections = async () => {
+async function connections() {
   if (isConnected) {
     console.log("Already connected to the database");
     return;
