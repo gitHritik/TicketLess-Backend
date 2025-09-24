@@ -50,9 +50,32 @@ passportUser();
 app.use(passport.initialize());
 app.use(passport.session());
 
+const DB = process.env.DATABASE;
+
+let isConnected = false;
+
+
+
+const connections = async () => {
+  if (isConnected) {
+    console.log("Already connected to the database");
+    return;
+  }
+
+  try {
+    await mongoose.connect(DB);
+    isConnected = true;
+    console.log("Database connected");
+  } catch (error) {
+    console.log("Error connecting to database:", error);
+  }
+};
+
 // Connect to the database
 app.use((req, res, next) => {
-  connections();
+  if (!isConnected) {
+    connections();
+  }
   next();
 });
 
