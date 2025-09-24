@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
+    origin: ["https://ticket-less-frontend-ou6z.vercel.app/", "https://ticket-less-frontend-ou6z.vercel.app/"],
     methods: "GET, POST, PATCH, DELETE, PUT",
     credentials: true,
   })
