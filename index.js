@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 const allowedOrigins = [
-  "https://ticket-less-frontend-tvp8.vercel.app/", // frontend deployed URL
+  "https://ticket-less-frontend.vercel.app", // frontend deployed URL
   "http://localhost:5173"                     // local dev
 ];
 
